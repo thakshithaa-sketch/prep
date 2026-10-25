@@ -1,0 +1,52 @@
+
+import java.util.Scanner;
+import java.util.HashMap;
+
+public class Main {
+
+    public static long factorial(int n) {
+        long fact = 1;
+
+        for (int i = 1; i <= n; i++) {
+            fact *= i;
+        }
+
+        return fact;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String s = sc.next();
+        int n = s.length();
+
+        HashMap<Character, Integer> freq = new HashMap<>();
+
+        // Count character frequencies
+        for (int i = 0; i < n; i++) {
+            char ch = s.charAt(i);
+
+            if (freq.containsKey(ch)) {
+                freq.put(ch, freq.get(ch) + 1);
+            } else {
+                freq.put(ch, 1);
+            }
+        }
+
+        // Calculate numerator: n!
+        long numerator = factorial(n);
+
+        // Calculate denominator: product of frequency factorials
+        long denominator = 1;
+
+        for (int count : freq.values()) {
+            denominator *= factorial(count);
+        }
+
+        long result = numerator / denominator;
+
+        System.out.println(result);
+        sc.close();
+    }
+}
+
